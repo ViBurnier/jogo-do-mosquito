@@ -1,3 +1,13 @@
+//timer
+ let time = 30;
+ let stopwatch = setInterval( function(){
+     time -= 1
+     let timerNumber = document.querySelector('span#timerNumber')
+     timerNumber.innerHTML = time
+     if(time < 0){
+          window.location.href = 'vitoria.html'
+     }
+ }, (1000))
 
  //fix stage 
  function fixStage(){  
@@ -8,32 +18,20 @@
      height = window.innerHeight
      width = window.innerWidth
     
-     return [height, width]
+     return [width, height]
  }
 
  //capturing random positions on the monitor
- function randomPosition(parameters){
-     let posX = Math.floor(Math.random() * parameters[1]) - 200  
-    let posY = Math.floor(Math.random() * parameters[0]) - 200
+    let randomPosition = function(parameters){
+     let X = Math.floor(Math.random() * parameters[0]) - 200  
+    let Y = Math.floor(Math.random() * parameters[1]) - 200
 
-     posX = posX < 0 ? 0 : posX
-     posY = posY < 0 ? 0 : posY
+     posX = X < 0 ? 0 : X
+     posY = Y < 0 ? 0 : Y
 
-     return [posY, posX]
+     return [posX, posY]
  }
- randomPosition(fixStage())
-
-
- //timer
- let time = 30;
- let stopwatch = setInterval( function(){
-     time -= 1
-     let timerNumber = document.querySelector('span#timerNumber')
-     timerNumber.innerHTML = time
-     if(time < 0){
-          window.location.href = 'vitoria.html'
-     }
- }, (1000))
+  let randomPos = randomPosition(fixStage())
 
 //set difficulty of game
 let flyTime = 0
@@ -55,44 +53,56 @@ function difficultyGame(){
     }
 }
 
+//random size fly
+function randomSizeFly(){
+    let sizeFly = Math.floor(Math.random() * 3)
 
-/*
-    let criarMoscaTempo = 1500
+    switch(sizeFly){
+        case 0: return 'f1'
+        break;
+        
+        case 1: return 'f2'
+        break;
 
-    let nivel = window.location.search
+        case 2: return 'f3'
+        break;
 
-    nivel = nivel.replace( '?', '')
-
-    if(nivel == 'chorao'){
-        criarMoscaTempo = 1500
     }
-    else if(nivel == 'normal'){
-        criarMoscaTempo = 1000
+}
+
+//change direction of the fly
+function randomDirectionFly(){
+    let direction = Math.floor(Math.random() * 2) 
+
+    switch (direction) {
+        case 0: return 'A'
+
+        case 1: return 'B'
     }
-    else if(nivel == 'dificil'){
-        criarMoscaTempo = 650
-    }
+}
 
-    let cronometro = setInterval( function(){
-    tempo -= 1 
+//create image fly for random position
+function createFlyImg(size, direction){
+    let imageFly = document.createElement('img')
+    imageFly.classList.add(size, direction)
+    imageFly.id = 'mosca'
+    imageFly.src = 'image/mosca.png'
 
-    if(tempo < 0){
-        window.location.href = 'vitoria.html'
-        clearInterval(cronometro)
-        clearInterval(criarmosca)
-    }
+    return imageFly
+}
 
-    document.querySelector('span#numeroCronometro').innerHTML = tempo
-}, (1000) ) 
-------------------------
-    let posX = Math.floor(Math.random() * largura) - 200 
-    let posY = Math.floor(Math.random() * altura) - 200
-    
-    posX = posX < 0 ? 0 : posX
-    posY = posY < 0 ? 0 : posY
+//inserting the image fly in the random position on the screen
+function insertingImgFly(imageFly){
+    let bodyHTML = document.querySelector('body')          
+    imageFly.style.left = randomPos[0] + 'px'
+    imageFly.style.top = randomPos[1] + 'px'
+    imageFly.style.position = 'absolute'
 
-document.querySelector('span#numeroCronometro').innerHTML = tempo
+    bodyHTML.appendChild(imageFly)
+}
 
-    posicaoRandom() 
+//delete the last fly
 
-    criarmosca()*/
+
+
+insertingImgFly(createFlyImg(randomSizeFly(), randomDirectionFly()))

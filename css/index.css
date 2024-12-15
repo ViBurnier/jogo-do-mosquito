@@ -32,7 +32,7 @@ body{
     background-color: rgba(6, 42, 73, 0.555);
 }
 
-.vidas{
+.lifes{
     display: flex;
     justify-content: center;
     border-radius: 100px;
@@ -43,3 +43,29 @@ body{
     margin-top: 5px;
 }
 
+.f1{
+    height: 60px;
+    width: 60px;
+}
+
+.f2{
+    height: 80px;
+    width: 80px;
+}
+
+.f3{
+    height: 100px;
+    width: 100px;
+}
+
+.A{
+    transform: scaleX(1) ;
+}
+
+.B{
+     transform: scaleX(-1)
+}
+
+.panel{
+    display: inline-block;
+}
