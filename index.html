@@ -12,23 +12,18 @@
     crossorigin="anonymous"></script>
 </head>
 <body>
-    
-    
-    <div class="container p-2">  
-        
-        <div id="cardAlert" class="bg-danger rounded d-none">
-            <!--fecha o alerta-->
-            <div class="p-1 " id="imagex">
-                <img src="image/botao-x.png" alt="" class="closeAlertCard " id="closeAlertCard" width="40"></img>
 
-                <div class="textoAlerta">
-                    <p class=" text-bg-danger "><h1>Select the Game Level</h1></p>
+    <div class="container p-2 ">  
+
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="alertSize bg-danger rounded alert border-dark border-2 d-flex justify-content-center d-none" id="cardAlert">
+                    <div class="">
+                        <img src="image/botao-x.png" alt="" class="closeAlertCard" width="40"></img>
+                    </div>
+                    <h1 class="">Select the Game Level</h1>  
                 </div>
-
             </div>
-
-            
-    
         </div>
 
         <!-- background -->
@@ -37,8 +32,6 @@
                 <div class="d-flex justify-content-center"> <img src="image/game.png" alt=""></div>
             </div>
         </div>
-
-        
 
         <!-- Select the Game Level -->
         <div class="row">
@@ -66,6 +59,5 @@
 
 
     <script src="js/index.js"></script>
-    
 </body>
 </html>
