@@ -117,7 +117,11 @@ let stopwatch = setInterval( function(){
     let randomPos = randomPosition(fixStage())
     insertingImgFly(flyImage, randomPos)
     time -= 1
-    timerNumber.innerHTML = time    
+    timerNumber.innerHTML = time  
+    
+    if(life <= 1 ){
+        window.location.href = 'end.html'
+    }
 }, difficultyGame())
 
  
