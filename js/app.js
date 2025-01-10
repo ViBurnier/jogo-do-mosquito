@@ -1,22 +1,10 @@
 
+let bodyHTML = document.querySelector('body')          
 let flyTime = 0
-
 // retun image fly 
 //preciso do valor atualizado de imgflyfunc para colocar no X()
 //colocando o valor atualizado no X() ele vai colocar a img da mosca 
 //em lugares diferentes
-let imageFlyFunction = createFlyImg(randomSizeFly(), randomDirectionFly())
-
-//stopwatch
-let time = 30;
-let stopwatch = setInterval( function(){
-    time -= 1
-    let timerNumber = document.querySelector('span#timerNumber')
-    timerNumber.innerHTML = time
-    if(time < 0){
-        window.location.href = 'vitoria.html'
-    }
-}, (1000))
 
 //capturing random positions on the monitor
 let randomPosition = function(parameters){
@@ -29,17 +17,10 @@ let randomPosition = function(parameters){
     return [posX, posY]
 }
 
-let randomPos = randomPosition(fixStage())
-
 //change direction of the fly
 function randomDirectionFly(){
     let direction = Math.floor(Math.random() * 2) 
-
-    switch (direction) {
-        case 0: return 'A'
-
-        case 1: return 'B'
-    }
+    return direction === 0 ? 'A' : 'B'
 }
 
 //random size fly
@@ -60,13 +41,38 @@ function randomSizeFly(){
 }
 
 //create image fly for random position
+let life = 4
 function createFlyImg(size, direction){
     let imageFly = document.createElement('img')
     imageFly.classList.add(size, direction)
     imageFly.id = 'fly'
     imageFly.src = 'image/mosca.png'
 
+    if(document.getElementById(imageFly.id)){
+        document.getElementById(imageFly.id).remove()
+        life--
+        document.getElementById('h' + life).src = 'image/coracao_vazio.png'
+    }
+
     return imageFly
+}
+
+//delete the last fly if don't click in fly, losing life
+
+
+//inserting the image fly in the random position on the screen
+function insertingImgFly(imageFly, positionImg){
+    
+    imageFly.style.left = positionImg[0] + 'px'
+    imageFly.style.top = positionImg[1] + 'px'
+    imageFly.style.position = 'absolute'
+    bodyHTML.appendChild(imageFly)
+    
+
+    imageFly.onclick = function(){
+        this.remove(imageFly)
+    }
+    
 }
 
 //set difficulty of game
@@ -100,63 +106,49 @@ function fixStage(){
     return [width, height]
 }
 
-//inserting the image fly in the random position on the screen
-function insertingImgFly(imageFly){
-    let bodyHTML = document.querySelector('body')          
-    imageFly.style.left = randomPos[0] + 'px'
-    imageFly.style.top = randomPos[1] + 'px'
-    imageFly.style.position = 'absolute'
+//stopwatch
+let timerNumber = document.querySelector('span#timerNumber')
+let time = 31;
+let stopwatch = setInterval( function(){
+    if(time < 0){
+        window.location.href = 'vitoria.html'
+    }
+    let flyImage = createFlyImg(randomSizeFly(), randomDirectionFly())
+    let randomPos = randomPosition(fixStage())
+    insertingImgFly(flyImage, randomPos)
+    time -= 1
+    timerNumber.innerHTML = time    
+}, difficultyGame())
 
-    bodyHTML.appendChild(imageFly)
-}
-
-insertingImgFly(imageFlyFunction)
-
-//delete the last fly if don't click in fly, losing life
-let life = 3
-function deletLastFly(idFly){
-
-    if(document.getElementById(idFly.id)){
-        document.getElementById(idFly.id).remove()
-
-        document.getElementById('h' + life).src = 'image/coracao_vazio.png'
-        
-        switch(life){
+ 
+/*switch(life){
             case 1: 
                 alert("PERDEU")           
             break;
 
             case 2: 
+                
                 life--
                 lifeHeart
             break;
 
             case 3: 
+                
                 life--
                 lifeHeart 
             break;
 
             default:
                 alert("ERROR")
-        }
-    } 
-}
-
-let X =  setInterval(function(){
-        insertingImgFly()
-        deletLastFly()
-    }, difficultyGame())
-
-
-X()
+        } */
 
 // //set difficult level the game
-// difficultyGame()
+//difficultyGame()
 
 // //puting image the fly on the screen
-// insertingImgFly(imageFlyFunction)
+//insertingImgFly(imageFlyFunction)
 
 // //delet fly, losing life
-// deletLastFly(life, imageFlyFunction)
+//deletLastFly(flyImage)
 
 
